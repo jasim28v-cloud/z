@@ -3,159 +3,147 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import re
 
-def run_sports():
-    # المصدر الأساسي للأخبار
-    rss_url = "https://arabic.rt.com/rss/sport/"
-    # إعدادات الرأس لضمان عدم الحظر
+def run_celebs_pro():
+    # تغيير المصدر إلى بوابة متخصصة في المشاهير والتريندات (VetoGate - فن)
+    rss_url = "https://www.vetogate.com/rss.aspx?id=31" 
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
     }
     
     try:
-        # الرابط الربحي (USDT / Direct Link)
         my_direct_link = "Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default"
         
-        # تنفيذ طلب جلب البيانات
         response = requests.get(rss_url, headers=headers, timeout=25)
         response.encoding = 'utf-8'
         
         if response.status_code != 200:
-            print(f"Failed to fetch data. Status Code: {response.status_code}")
             return
 
         soup = BeautifulSoup(response.content, 'xml')
         items = soup.find_all('item')
         
-        # تحسين شريط الأخبار المتحرك (Ticker)
-        ticker_items = " • ".join([f"🔥 {item.title.text.strip()}" for item in items[:15]])
+        ticker_items = " • ".join([f"✨ {item.title.text.strip()}" for item in items[:15]])
         news_html = ""
         
         for i, item in enumerate(items[:24]):
             title = item.title.text.strip()
             news_url = item.link.text.strip()
             
-            # استخراج الصورة الأصلية بجودة عالية
-            img_element = item.find('enclosure')
-            img_url = img_element.get('url') if img_element else "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg"
+            # محاولة استخراج الصورة من ميديا الوصف أو enclosure
+            img_url = "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg"
+            enclosure = item.find('enclosure')
+            if enclosure:
+                img_url = enclosure.get('url')
+            else:
+                description = item.find('description').text
+                img_match = re.search(r'<img src="(.*?)"', description)
+                if img_match:
+                    img_url = img_match.group(1)
             
-            # هيكلة كروت الأخبار بتصميم عصري
             news_html += f'''
-            <article class="sport-card">
-                <div class="live-tag">LIVE | مباشر</div>
+            <article class="celeb-card">
+                <div class="trend-tag">🔥 تريند الآن</div>
                 <div class="card-thumb">
                     <a href="{my_direct_link}" target="_blank">
-                        <img src="{img_url}" loading="lazy" alt="{title[:20]}">
+                        <img src="{img_url}" loading="lazy" alt="celeb news">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">{title}</h2>
-                    <div class="match-info">
-                        <span>🏆 البطولة العالمية</span>
-                        <span>🕒 {datetime.now().strftime("%H:%M")} GMT</span>
+                    <div class="meta-info">
+                        <span>🎬 كواليس النجوم</span>
+                        <span>⏱️ {datetime.now().strftime("%H:%M")}</span>
                     </div>
                     <div class="button-group">
-                        <a href="{my_direct_link}" target="_blank" class="btn-live">دخول البث ⚡</a>
+                        <a href="{my_direct_link}" target="_blank" class="btn-exclusive">شاهد الفضيحة كاملة ⚡</a>
                         <a href="{news_url}" target="_blank" class="btn-source">التفاصيل</a>
                     </div>
                 </div>
             </article>'''
 
-            # إدراج إعلانات بينية احترافية كل 6 كروت
-            if (i + 1) % 6 == 0:
+            if (i + 1) % 5 == 0:
                 news_html += f'''
                 <div class="premium-ad-block">
                     <a href="{my_direct_link}" target="_blank" style="text-decoration:none;">
                         <div class="ad-content">
-                            <span class="ad-label">AD | إعلان</span>
-                            <h3>ترتيب الهدافين وجدول ترتيب الدوريات</h3>
-                            <p>اضغط هنا لمتابعة الإحصائيات الحية لحظة بلحظة</p>
-                            <div class="ad-button">النتائج المباشرة 📊</div>
+                            <span class="ad-label">حصري لزوارنا</span>
+                            <h3>تسريبات وصور تظهر لأول مرة</h3>
+                            <p>اضغط هنا للدخول إلى الألبوم السري للمشاهير</p>
+                            <div class="ad-button">دخول الآن 🔓</div>
                         </div>
                     </a>
                 </div>'''
 
-        # توليد صفحة الـ HTML الكاملة مع تحسينات CSS
         full_html = f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ستاديوم 24 - تغطية مباشرة وحصرية لأهم المباريات والأخبار الرياضية">
-    <title>ستاديوم 24 | نبض الرياضة العالمية</title>
+    <title>مشاهير لايف | فضائح وتريندات</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {{
-            --bg-dark: #0f0f0f; --gold: #cfa84e; --white: #ffffff;
-            --danger: #e74c3c; --card-bg: #1a1a1a; --hover-bg: #222222;
+            --dark: #080808; --pink: #ff2e63; --gold: #f9d423; --white: #ffffff;
+            --card-bg: #121212;
         }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }}
-        body {{ background: var(--bg-dark); color: var(--white); padding-top: 150px; scroll-behavior: smooth; }}
+        body {{ background: var(--dark); color: var(--white); padding-top: 150px; }}
         
-        header {{ background: rgba(15, 15, 15, 0.98); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--gold); display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(10px); }}
-        .logo {{ font-size: 30px; font-weight: 900; color: #fff; text-decoration: none; }}
-        .logo span {{ color: var(--gold); }}
+        header {{ background: rgba(0, 0, 0, 0.9); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 2px solid var(--pink); display: flex; justify-content: space-between; align-items: center; }}
+        .logo {{ font-size: 28px; font-weight: 900; color: #fff; text-decoration: none; }}
+        .logo span {{ color: var(--pink); }}
 
-        .live-ticker {{ position: fixed; top: 85px; width: 100%; background: var(--danger); color: #fff; overflow: hidden; height: 40px; display: flex; align-items: center; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }}
-        .ticker-label {{ background: #000; padding: 0 20px; font-weight: 900; font-size: 14px; height: 100%; display: flex; align-items: center; z-index: 2; }}
-        .ticker-text {{ white-space: nowrap; animation: scroll-rtl 50s linear infinite; font-weight: 600; padding-right: 100%; }}
+        .live-ticker {{ position: fixed; top: 85px; width: 100%; background: var(--pink); color: #fff; overflow: hidden; height: 35px; display: flex; align-items: center; z-index: 999; font-size: 13px; }}
+        .ticker-label {{ background: #000; padding: 0 20px; font-weight: 900; }}
+        .ticker-text {{ white-space: nowrap; animation: scroll-rtl 50s linear infinite; }}
         @keyframes scroll-rtl {{ 0% {{ transform: translateX(-100%); }} 100% {{ transform: translateX(100%); }} }}
 
-        .container {{ max-width: 1300px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }}
+        .container {{ max-width: 1200px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }}
         
-        .sport-card {{ background: var(--card-bg); border-radius: 20px; overflow: hidden; transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); border: 1px solid #2a2a2a; position: relative; }}
-        .sport-card:hover {{ transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }}
+        .celeb-card {{ background: var(--card-bg); border-radius: 12px; overflow: hidden; transition: 0.3s; border: 1px solid #222; position: relative; }}
+        .celeb-card:hover {{ transform: scale(1.02); border-color: var(--pink); }}
         
-        .live-tag {{ position: absolute; top: 15px; right: 15px; background: var(--danger); color: #fff; padding: 5px 15px; font-size: 11px; font-weight: 900; border-radius: 5px; z-index: 10; animation: flash 1s infinite; }}
-        @keyframes flash {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: 0.6; }} }}
+        .trend-tag {{ position: absolute; top: 10px; right: 10px; background: rgba(255, 46, 99, 0.9); color: #fff; padding: 4px 10px; font-size: 11px; font-weight: 900; border-radius: 4px; z-index: 5; }}
 
-        .card-thumb {{ height: 210px; overflow: hidden; border-bottom: 4px solid var(--gold); }}
-        .card-thumb img {{ width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s; }}
-        .sport-card:hover .card-thumb img {{ transform: scale(1.1); }}
+        .card-thumb {{ height: 200px; }}
+        .card-thumb img {{ width: 100%; height: 100%; object-fit: cover; }}
         
-        .card-body {{ padding: 25px; }}
-        .card-title {{ font-size: 18px; font-weight: 700; line-height: 1.6; margin-bottom: 20px; height: 58px; overflow: hidden; color: #eee; }}
-        .match-info {{ display: flex; justify-content: space-between; font-size: 13px; color: var(--gold); margin-bottom: 25px; font-weight: bold; border-top: 1px solid #333; padding-top: 15px; }}
+        .card-body {{ padding: 20px; }}
+        .card-title {{ font-size: 17px; font-weight: 700; line-height: 1.5; margin-bottom: 15px; height: 50px; overflow: hidden; }}
+        .meta-info {{ display: flex; justify-content: space-between; font-size: 11px; color: var(--gold); margin-bottom: 20px; }}
         
-        .button-group {{ display: flex; gap: 12px; }}
-        .btn-live {{ flex: 2; background: linear-gradient(90deg, #cfa84e, #f2cc60); color: #000; text-decoration: none; text-align: center; padding: 14px; border-radius: 12px; font-weight: 900; transition: 0.3s; }}
-        .btn-live:hover {{ filter: brightness(1.2); letter-spacing: 1px; }}
-        .btn-source {{ flex: 1; background: #333; color: #fff; text-decoration: none; text-align: center; padding: 14px; border-radius: 12px; border: none; font-size: 13px; transition: 0.3s; }}
-        .btn-source:hover {{ background: #444; }}
+        .button-group {{ display: flex; gap: 8px; }}
+        .btn-exclusive {{ flex: 2; background: var(--pink); color: #fff; text-decoration: none; text-align: center; padding: 12px; border-radius: 6px; font-weight: 900; }}
+        .btn-source {{ flex: 1; background: #222; color: #888; text-decoration: none; text-align: center; padding: 12px; border-radius: 6px; font-size: 11px; border: 1px solid #333; }}
 
-        .premium-ad-block {{ grid-column: 1 / -1; background: linear-gradient(135deg, #1a1a1a 0%, #000 100%); border: 2px dashed var(--gold); border-radius: 25px; padding: 50px; text-align: center; margin: 30px 0; transition: 0.4s; cursor: pointer; }}
-        .premium-ad-block:hover {{ background: #000; border-style: solid; }}
-        .ad-label {{ background: var(--gold); color: #000; padding: 5px 15px; font-weight: 900; border-radius: 5px; font-size: 12px; }}
-        .ad-content h3 {{ font-size: 28px; color: #fff; margin: 20px 0; }}
-        .ad-button {{ background: var(--white); color: #000; display: inline-block; padding: 15px 50px; border-radius: 12px; font-weight: 900; margin-top: 25px; text-transform: uppercase; }}
+        .premium-ad-block {{ grid-column: 1 / -1; background: linear-gradient(45deg, #121212, #250a10); border: 2px dashed var(--pink); border-radius: 15px; padding: 40px; text-align: center; }}
+        .ad-button {{ background: var(--gold); color: #000; display: inline-block; padding: 12px 40px; border-radius: 50px; font-weight: 900; margin-top: 15px; }}
 
-        @media (max-width: 768px) {{ body {{ padding-top: 140px; }} .container {{ grid-template-columns: 1fr; }} .logo {{ font-size: 24px; }} }}
+        @media (max-width: 600px) {{ .container {{ grid-template-columns: 1fr; }} }}
     </style>
 </head>
 <body>
     <header>
-        <a href="#" class="logo">ستاديوم <span>24</span></a>
-        <div style="font-size: 14px; font-weight: bold; color: var(--gold); display: flex; align-items:center; gap:8px;">
-            <span style="width:10px; height:10px; background:var(--danger); border-radius:50%; display:inline-block; animation: flash 1s infinite;"></span>
-            تغطية حصرية 2026
-        </div>
+        <a href="#" class="logo">CELEB<span>24</span></a>
+        <div style="font-size: 12px; font-weight: bold; color: var(--pink);">📸 نبض النجوم</div>
     </header>
     <div class="live-ticker">
         <div class="ticker-label">عاجل</div>
         <div class="ticker-text">{ticker_items}</div>
     </div>
     <main class="container">{news_html}</main>
-    <footer style="text-align:center; padding: 60px 20px; color: #555; font-size: 14px; background: #050505; margin-top: 50px;">
-        <p>حقوق النشر &copy; 2026 ستاديوم 24 | جميع الحقوق محفوظة لرواد الرياضة</p>
+    <footer style="text-align:center; padding: 40px; color: #444; font-size: 12px;">
+        <p>CELEB 24 &copy; 2026 | Exclusive Celebrity News</p>
     </footer>
 </body>
 </html>'''
 
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(full_html)
-        print("Done: Mission Accomplished. index.html is ready.")
+        print("Success: Professional Celeb Portal is LIVE.")
             
     except Exception as e:
-        print(f"Extraction Error: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
-    run_sports()
+    run_celebs_pro()
