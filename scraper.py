@@ -3,13 +3,15 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import re
 
-def run_celebs_main():
+def run_celebs_final():
+    # مصدر متخصص في أخبار الفن والمشاهير (Vetogate Arts)
     rss_url = "https://www.vetogate.com/rss.aspx?id=31" 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
     }
     
     try:
+        # الرابط الربحي الخاص بك
         my_direct_link = "Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default"
         
         response = requests.get(rss_url, headers=headers, timeout=25)
@@ -21,6 +23,7 @@ def run_celebs_main():
         soup = BeautifulSoup(response.content, 'xml')
         items = soup.find_all('item')
         
+        # شريط الأخبار العلوي
         ticker_items = " • ".join([f"✨ {item.title.text.strip()}" for item in items[:15]])
         news_html = ""
         
@@ -28,6 +31,7 @@ def run_celebs_main():
             title = item.title.text.strip()
             news_url = item.link.text.strip()
             
+            # استخراج الصورة
             img_url = "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg"
             enclosure = item.find('enclosure')
             if enclosure:
@@ -38,22 +42,23 @@ def run_celebs_main():
                 if img_match:
                     img_url = img_match.group(1)
             
+            # بناء كرت الخبر
             news_html += f'''
             <article class="celeb-card">
-                <div class="trend-tag">HOT TREND</div>
+                <div class="trend-tag">TREND | تريند</div>
                 <div class="card-thumb">
                     <a href="{my_direct_link}" target="_blank">
-                        <img src="{img_url}" loading="lazy" alt="celeb news">
+                        <img src="{img_url}" loading="lazy" alt="celebrity news">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">{title}</h2>
                     <div class="meta-info">
-                        <span>🎬 كواليس المشاهير</span>
+                        <span>🎬 حصريات الفن</span>
                         <span>⏱️ {datetime.now().strftime("%H:%M")}</span>
                     </div>
                     <div class="button-group">
-                        <a href="{my_direct_link}" target="_blank" class="btn-main">تفاصيل حصرية 💎</a>
+                        <a href="{my_direct_link}" target="_blank" class="btn-main">شاهد الان 💎</a>
                         <a href="{news_url}" target="_blank" class="btn-sub">المصدر</a>
                     </div>
                 </div>
@@ -64,9 +69,9 @@ def run_celebs_main():
                 <div class="ad-section">
                     <a href="{my_direct_link}" target="_blank">
                         <div class="ad-box">
-                            <span class="ad-badge">EXCLUSIVE</span>
-                            <h3>أسرار وخفايا لا يعرفها الجمهور</h3>
-                            <p>انقر هنا لمشاهدة الصور والمقاطع المسربة فوراً</p>
+                            <span class="ad-badge">VIP ONLY</span>
+                            <h3>أسرار لم تنشر من قبل عن نجومك المفضلين</h3>
+                            <p>انقر هنا لمشاهدة الصور المسربة وحقائق لأول مرة</p>
                             <div class="ad-btn">اكتشف الآن 🔓</div>
                         </div>
                     </a>
@@ -80,7 +85,9 @@ def run_celebs_main():
     <title>ستار جلام | عالم المشاهير والتريند</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {{ --bg: #050505; --accent: #e91e63; --gold: #ffd700; --card: #121212; }}
+        :root {{
+            --bg: #050505; --accent: #e91e63; --gold: #ffd700; --card: #121212;
+        }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }}
         body {{ background: var(--bg); color: #fff; padding-top: 140px; }}
         header {{ background: #000; padding: 15px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 3px solid var(--accent); display: flex; justify-content: space-between; align-items: center; }}
@@ -126,10 +133,10 @@ def run_celebs_main():
 
         with open("index.html", "w", encoding="utf-8") as f:
             f.write(full_html)
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] Mission Success: index.html updated.")
+        print("Done: index.html has been generated with Celebrity Content.")
             
     except Exception as e:
-        print(f"Critical Error: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
-    run_celebs_main()
+    run_celebs_final()
