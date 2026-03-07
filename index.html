@@ -3,653 +3,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سيدتي لايت | عالم النجوم والمشاهير</title>
+    <title>سيدتي VIP | بوابة النجوم</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --main: #8e44ad; --gold: #f1c40f; --dark: #121212; --card: #1e1e1e; --text: #ffffff; }
+        :root { --main: #d4207e; --gold: #fbc02d; --dark: #0f0f0f; --card: #1a1a1a; --text: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--dark); font-family: 'Cairo', sans-serif; color: var(--text); padding-top: 140px; }
-        header { background: rgba(0,0,0,0.9); padding: 15px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 3px solid var(--main); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 28px; font-weight: 900; color: #fff; text-decoration: none; }
+        header { background: rgba(0,0,0,0.95); padding: 15px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 3px solid var(--main); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 26px; font-weight: 900; color: #fff; text-decoration: none; }
         .logo span { color: var(--main); }
-        .ticker-bar { position: fixed; top: 78px; width: 100%; background: #fff; color: #000; overflow: hidden; height: 35px; display: flex; align-items: center; z-index: 999; border-bottom: 2px solid var(--gold); }
+        .ticker-bar { position: fixed; top: 76px; width: 100%; background: #fff; color: #000; overflow: hidden; height: 38px; display: flex; align-items: center; z-index: 999; border-bottom: 2px solid var(--gold); }
         .ticker-label { background: var(--main); color: #fff; padding: 0 15px; font-weight: 800; font-size: 13px; height: 100%; display: flex; align-items: center; }
-        .ticker-text { white-space: nowrap; animation: scroll 45s linear infinite; font-weight: 700; }
-        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-250%); } }
-        .grid-container { max-width: 1200px; margin: 0 auto; padding: 0 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
-        .celeb-card { background: var(--card); border-radius: 20px; overflow: hidden; transition: 0.3s; border: 1px solid #333; position: relative; }
-        .celeb-card:hover { transform: translateY(-10px); border-color: var(--main); }
-        .trend-tag { position: absolute; top: 15px; right: 15px; background: var(--main); color: #fff; padding: 4px 15px; font-size: 11px; font-weight: 900; border-radius: 50px; z-index: 10; }
-        .card-thumb { height: 230px; overflow: hidden; }
-        .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
-        .card-body { padding: 20px; }
-        .card-title { font-size: 18px; font-weight: 800; line-height: 1.5; margin-bottom: 15px; height: 54px; overflow: hidden; color: #eee; }
-        .meta-info { display: flex; justify-content: space-between; font-size: 11px; color: var(--gold); margin-bottom: 20px; }
-        .action-buttons { display: flex; gap: 10px; }
-        .btn-main { flex: 2; background: var(--main); color: #fff; text-decoration: none; text-align: center; padding: 12px; border-radius: 12px; font-weight: 900; }
-        .btn-sub { flex: 1; border: 1px solid #444; color: #ccc; text-decoration: none; text-align: center; padding: 12px; border-radius: 12px; font-size: 11px; }
-        .premium-ad-block { grid-column: 1 / -1; background: linear-gradient(45deg, #2c3e50, #000); border: 1px solid var(--gold); border-radius: 20px; padding: 40px; text-align: center; }
-        .ad-button { background: var(--gold); color: #000; display: inline-block; padding: 12px 40px; border-radius: 50px; font-weight: 900; margin-top: 20px; text-decoration: none; }
+        .ticker-text { white-space: nowrap; animation: scroll 40s linear infinite; font-weight: 700; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-300%); } }
+        .grid-container { max-width: 1200px; margin: 0 auto; padding: 0 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+        .celeb-card { background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid #222; position: relative; transition: 0.3s; }
+        .celeb-card:hover { transform: scale(1.02); border-color: var(--main); }
+        .trend-tag { position: absolute; top: 10px; right: 10px; background: rgba(212, 32, 126, 0.9); color: #fff; padding: 2px 12px; font-size: 10px; font-weight: 900; border-radius: 4px; z-index: 5; }
+        .card-thumb { height: 240px; overflow: hidden; border-bottom: 2px solid var(--main); }
+        .card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card-body { padding: 15px; }
+        .card-title { font-size: 17px; font-weight: 700; height: 50px; overflow: hidden; margin-bottom: 12px; line-height: 1.5; }
+        .meta-info { display: flex; justify-content: space-between; font-size: 11px; color: var(--gold); margin-bottom: 15px; }
+        .btn-main { display: block; background: var(--main); color: #fff; text-decoration: none; text-align: center; padding: 12px; border-radius: 8px; font-weight: 900; font-size: 14px; }
+        .premium-ad-block { grid-column: 1 / -1; background: linear-gradient(90deg, #d4207e 0%, #6a1b9a 100%); border-radius: 15px; padding: 30px; text-align: center; color: white; }
+        .ad-button { background: #fff; color: #d4207e; display: inline-block; padding: 10px 30px; border-radius: 50px; font-weight: 900; margin-top: 15px; text-decoration: none; }
         @media (max-width: 600px) { .grid-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <header>
-        <a href="#" class="logo">سيدتي <span>LIGHT</span></a>
-        <div style="font-size: 12px; font-weight: bold; color: var(--gold);">✨ أخبار النجوم</div>
+        <a href="#" class="logo">SAYIDATY <span>VIP</span></a>
+        <div style="font-size: 12px; color: var(--gold);">EXCLUSIVES ✨</div>
     </header>
     <div class="ticker-bar">
-        <div class="ticker-label">عاجل</div>
+        <div class="ticker-label">عاجل والآن</div>
         <div class="ticker-text">✨ مي عمر تُعاتب ياسمين عبد العزيز والأخيرة ترد • ✨ مسلسل إفراج الحلقة 18.. تارا عماد تشعل حفل زفاف شقيقة عباس الريس بأغنية اتغاظوا بقى • ✨ عمرو سعد يفك كرب 53 غارمًا وغارمة: مجرد بداية • ✨ من هي بيرين سات؟ بطلة مسلسل العشق الممنوع في سطور • ✨ يوم المرأة العالمي.. دليلك لأفكار ديكور مميزة بالزهور والألوان • ✨ ماذا تفعلين عند نزول ماء الجنين من دون شعور بآلام المخاض؟ • ✨ القائمة الكاملة لأفلام عيد الفطر 2026.. جرعة مكثفة من الكوميديا • ✨ الخجل الشديد عند الطفل.. مشكله تعترضه أم نعمة تفيده؟! • ✨ مريم فيكتشيلو رئيساً تنفيذياً للهيئة السعودية للبحر الأحمر • ✨ طفلي لا يشبهني في الملامح فهل يتغير؟ ومتى تظهر الجينات الحقيقية؟ • ✨ ما التوقيت المناسب لتقديم كل نوع من الفيتامينات لطفلك.. لكي تُزيدي من فعاليتها؟ • ✨ يوم المرأة العالمي: خطوات عملية لتنشئة فتاة قوية وناجحة • ✨ عبارات عن قوة الصبر تُلهمك المثابرة لتحقيق النجاح • ✨ تايلور سويفت تتفوق على بيونسيه وأديل وتتصدر مبيعات القرن الـ21 • ✨ متحف السيرة النبوية بالمدينة المنورة يوثق سيرة النبي صلى الله عليه وسلم بأحدث التقنيات</div>
     </div>
     <main class="grid-container">
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">مي عمر تُعاتب ياسمين عبد العزيز والأخيرة ترد</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/1830671-%D9%8A%D8%A7%D8%B3%D9%85%D9%8A%D9%86-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2-%D8%AA%D8%B1%D8%AF-%D8%B9%D9%84%D9%89-%D8%B9%D8%AA%D8%A7%D8%A8-%D9%85%D9%8A-%D8%B9%D9%85%D8%B1" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">مسلسل إفراج الحلقة 18.. تارا عماد تشعل حفل زفاف شقيقة عباس الريس بأغنية اتغاظوا بقى</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1830670-%D9%85%D8%B3%D9%84%D8%B3%D9%84-%D8%A5%D9%81%D8%B1%D8%A7%D8%AC-%D8%A7%D9%84%D8%AD%D9%84%D9%82%D8%A9-18" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">عمرو سعد يفك كرب 53 غارمًا وغارمة: مجرد بداية</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/1830669-%D8%B9%D9%85%D8%B1%D9%88-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D8%BA%D8%A7%D8%B1%D9%85%D9%8A%D9%86" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">من هي بيرين سات؟ بطلة مسلسل العشق الممنوع في سطور</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85/1830668-%D8%A7%D9%84%D8%B3%D9%8A%D8%B1%D8%A9-%D8%A7%D9%84%D8%B0%D8%A7%D8%AA%D9%8A%D8%A9-%D8%A8%D9%8A%D8%B1%D9%8A%D9%86-%D8%B3%D8%A7%D8%AA" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">يوم المرأة العالمي.. دليلك لأفكار ديكور مميزة بالزهور والألوان</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%84%D8%A7%D9%8A%D9%81-%D8%B3%D8%AA%D8%A7%D9%8A%D9%84/%D9%85%D9%86%D8%B2%D9%84-%D9%88%D8%AF%D9%8A%D9%83%D9%88%D8%B1/1830667-%D8%A3%D9%81%D9%83%D8%A7%D8%B1-%D8%AF%D9%8A%D9%83%D9%88%D8%B1-%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D9%85%D8%B1%D8%A3%D8%A9-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
+                <div class="premium-ad-block">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <div class="ad-wrap">
+                            <span class="exclusive">حصري</span>
+                            <h3>شاهد الفيديوهات المسربة التي حذفتها الفنانة!</h3>
+                            <p>اضغط هنا للمشاهدة قبل الحذف</p>
+                            <div class="ad-button">مشاهدة الآن 📽️</div>
+                        </div>
+                    </a>
+                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">ماذا تفعلين عند نزول ماء الجنين من دون شعور بآلام المخاض؟</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%B3%D9%8A%D8%AF%D8%AA%D9%8A-%D9%88%D8%B7%D9%81%D9%84%D9%83/%D8%A7%D9%84%D8%AD%D9%85%D9%84-%D9%88%D8%A7%D9%84%D9%88%D9%84%D8%A7%D8%AF%D8%A9/1830661-%D9%86%D8%B2%D9%88%D9%84-%D9%85%D8%A7%D8%A1-%D8%A7%D9%84%D8%AC%D9%86%D9%8A%D9%86" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
-                <div class="premium-ad-block">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <div class="ad-wrap">
-                            <span class="exclusive">حصري</span>
-                            <h3>كواليس وأسرار النجوم المسربة اليوم</h3>
-                            <p>اضغط هنا لمشاهدة الصور والفيديوهات الحصرية</p>
-                            <div class="ad-button">دخول الأرشيف السري 💎</div>
-                        </div>
-                    </a>
-                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">القائمة الكاملة لأفلام عيد الفطر 2026.. جرعة مكثفة من الكوميديا</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/1830666-%D8%A3%D9%81%D9%84%D8%A7%D9%85-%D8%B9%D9%8A%D8%AF-%D8%A7%D9%84%D9%81%D8%B7%D8%B1-2026" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">الخجل الشديد عند الطفل.. مشكله تعترضه أم نعمة تفيده؟!</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%B3%D9%8A%D8%AF%D8%AA%D9%8A-%D9%88%D8%B7%D9%81%D9%84%D9%83/%D8%A3%D8%B7%D9%81%D8%A7%D9%84-%D9%88%D9%85%D8%B1%D8%A7%D9%87%D9%82%D9%88%D9%86/1830658-%D8%A7%D9%84%D8%AE%D8%AC%D9%84-%D8%A7%D9%84%D8%B4%D8%AF%D9%8A%D8%AF-%D9%84%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">مريم فيكتشيلو رئيساً تنفيذياً للهيئة السعودية للبحر الأحمر</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1830665-%D8%A7%D9%84%D9%87%D9%8A%D8%A6%D8%A9-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9-%D9%84%D9%84%D8%A8%D8%AD%D8%B1-%D8%A7%D9%84%D8%A3%D8%AD%D9%85%D8%B1" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">طفلي لا يشبهني في الملامح فهل يتغير؟ ومتى تظهر الجينات الحقيقية؟</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%B3%D9%8A%D8%AF%D8%AA%D9%8A-%D9%88%D8%B7%D9%81%D9%84%D9%83/%D9%85%D9%88%D9%84%D9%88%D8%AF%D9%83/1830659-%D8%B7%D9%81%D9%84%D9%8A-%D9%84%D8%A7-%D9%8A%D8%B4%D8%A8%D9%87%D9%86%D9%8A" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
+                <div class="premium-ad-block">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <div class="ad-wrap">
+                            <span class="exclusive">حصري</span>
+                            <h3>شاهد الفيديوهات المسربة التي حذفتها الفنانة!</h3>
+                            <p>اضغط هنا للمشاهدة قبل الحذف</p>
+                            <div class="ad-button">مشاهدة الآن 📽️</div>
+                        </div>
+                    </a>
+                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">ما التوقيت المناسب لتقديم كل نوع من الفيتامينات لطفلك.. لكي تُزيدي من فعاليتها؟</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%B3%D9%8A%D8%AF%D8%AA%D9%8A-%D9%88%D8%B7%D9%81%D9%84%D9%83/%D8%B5%D8%AD%D8%A9-%D8%A7%D9%84%D8%B7%D9%81%D9%84/1830660-%D8%AA%D9%82%D8%AF%D9%8A%D9%85-%D8%A7%D9%84%D9%81%D9%8A%D8%AA%D8%A7%D9%85%D9%8A%D9%86%D8%A7%D8%AA-%D9%84%D9%84%D8%B7%D9%81%D9%84" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">يوم المرأة العالمي: خطوات عملية لتنشئة فتاة قوية وناجحة</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%B3%D9%8A%D8%AF%D8%AA%D9%8A-%D9%88%D8%B7%D9%81%D9%84%D9%83/%D8%A3%D8%B7%D9%81%D8%A7%D9%84-%D9%88%D9%85%D8%B1%D8%A7%D9%87%D9%82%D9%88%D9%86/1830657-%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D9%85%D8%B1%D8%A3%D8%A9-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
-                <div class="premium-ad-block">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <div class="ad-wrap">
-                            <span class="exclusive">حصري</span>
-                            <h3>كواليس وأسرار النجوم المسربة اليوم</h3>
-                            <p>اضغط هنا لمشاهدة الصور والفيديوهات الحصرية</p>
-                            <div class="ad-button">دخول الأرشيف السري 💎</div>
-                        </div>
-                    </a>
-                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">عبارات عن قوة الصبر تُلهمك المثابرة لتحقيق النجاح</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D9%88%D9%81%D9%86%D9%88%D9%86/1830649-%D8%B9%D8%A8%D8%A7%D8%B1%D8%A7%D8%AA-%D9%85%D9%84%D9%87%D9%85%D8%A9-%D8%B9%D9%86-%D9%82%D9%88%D8%A9-%D8%A7%D9%84%D8%B5%D8%A8%D8%B1" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">تايلور سويفت تتفوق على بيونسيه وأديل وتتصدر مبيعات القرن الـ21</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85/1830664-%D8%AA%D8%A7%D9%8A%D9%84%D9%88%D8%B1-%D8%B3%D9%88%D9%8A%D9%81%D8%AA-%D8%A7%D9%84%D8%A3%D8%B9%D9%84%D9%89-%D9%85%D8%A8%D9%8A%D8%B9%D8%A7%D9%8B" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">متحف السيرة النبوية بالمدينة المنورة يوثق سيرة النبي صلى الله عليه وسلم بأحدث التقنيات</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D9%88%D9%81%D9%86%D9%88%D9%86/1830663-%D9%85%D8%AA%D8%AD%D9%81-%D8%A7%D9%84%D8%B3%D9%8A%D8%B1%D8%A9-%D8%A7%D9%84%D9%86%D8%A8%D9%88%D9%8A%D8%A9" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
+                <div class="premium-ad-block">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <div class="ad-wrap">
+                            <span class="exclusive">حصري</span>
+                            <h3>شاهد الفيديوهات المسربة التي حذفتها الفنانة!</h3>
+                            <p>اضغط هنا للمشاهدة قبل الحذف</p>
+                            <div class="ad-button">مشاهدة الآن 📽️</div>
+                        </div>
+                    </a>
+                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">استوحي إطلالات مناسبة للمرأة العاملة من أسبوع الموضة في باريس</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A3%D9%86%D8%A7%D9%82%D8%A9/%D8%A3%D8%B2%D9%8A%D8%A7%D8%A1/1830628-%D8%A5%D8%B7%D9%84%D8%A7%D9%84%D8%A7%D8%AA-%D9%84%D9%84%D9%85%D8%B1%D8%A3%D8%A9-%D8%A7%D9%84%D8%B9%D8%A7%D9%85%D9%84%D8%A9" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">ياسمين عبد العزيز تشعل صراع الأعلى مشاهدة.. ورسالة صادمة من محمد سامي</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8/1830662-%D9%8A%D8%A7%D8%B3%D9%85%D9%8A%D9%86-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2-%D9%88%D9%85%D8%AD%D9%85%D8%AF-%D8%B3%D8%A7%D9%85%D9%8A" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">أفكار للإحتفال بيوم المرأة العالمي بطرق مُلهمة ومميزة </h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%B4%D8%A8%D8%A7%D8%A8-%D9%88%D8%A8%D9%86%D8%A7%D8%AA/1830539-%D8%A3%D9%81%D9%83%D8%A7%D8%B1-%D9%84%D9%84%D8%A7%D8%AD%D8%AA%D9%81%D8%A7%D9%84-%D8%A8%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D9%85%D8%B1%D8%A3%D8%A9-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
-                <div class="premium-ad-block">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <div class="ad-wrap">
-                            <span class="exclusive">حصري</span>
-                            <h3>كواليس وأسرار النجوم المسربة اليوم</h3>
-                            <p>اضغط هنا لمشاهدة الصور والفيديوهات الحصرية</p>
-                            <div class="ad-button">دخول الأرشيف السري 💎</div>
-                        </div>
-                    </a>
-                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">أجمل إطلالات يارا السكري نجمة مسلسل علي كلاي</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A3%D9%86%D8%A7%D9%82%D8%A9/%D8%A5%D8%B7%D9%84%D8%A7%D9%84%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/1830630-%D8%A5%D8%B7%D9%84%D8%A7%D9%84%D8%A7%D8%AA-%D9%8A%D8%A7%D8%B1%D8%A7-%D8%A7%D9%84%D8%B3%D9%83%D8%B1%D9%8A" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">أسرار فن الاحتواء بين الزوجين في رمضان</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%B9%D9%84%D8%A7%D9%82%D8%A7%D8%AA-%D8%B2%D9%88%D8%AC%D9%8A%D8%A9/1830653-%D8%A3%D8%B3%D8%B1%D8%A7%D8%B1-%D9%81%D9%86-%D8%A7%D9%84%D8%A7%D8%AD%D8%AA%D9%88%D8%A7%D8%A1-%D8%A8%D9%8A%D9%86-%D8%A7%D9%84%D8%B2%D9%88%D8%AC%D9%8A%D9%86-%D9%81%D9%8A-%D8%B1%D9%85%D8%B6%D8%A7%D9%86" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
+                <div class="premium-ad-block">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <div class="ad-wrap">
+                            <span class="exclusive">حصري</span>
+                            <h3>شاهد الفيديوهات المسربة التي حذفتها الفنانة!</h3>
+                            <p>اضغط هنا للمشاهدة قبل الحذف</p>
+                            <div class="ad-button">مشاهدة الآن 📽️</div>
+                        </div>
+                    </a>
+                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">الألماس الأسود ... فخامة تعكس قوتك في اليوم العالمي للمرأة</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A3%D9%86%D8%A7%D9%82%D8%A9/%D9%85%D8%AC%D9%88%D9%87%D8%B1%D8%A7%D8%AA-%D9%88%D8%B3%D8%A7%D8%B9%D8%A7%D8%AA/1830654-%D8%A7%D9%84%D8%A3%D9%84%D9%85%D8%A7%D8%B3-%D8%A7%D9%84%D8%A3%D8%B3%D9%88%D8%AF-%D9%81%D8%AE%D8%A7%D9%85%D8%A9-%D8%AA%D8%B9%D9%83%D8%B3-%D9%82%D9%88%D8%AA%D9%83-%D9%81%D9%8A-%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D9%85%D8%B1%D8%A3%D8%A9" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">جمال القوة الناعمة.. تعرفي إلى أبرز خبيرات التجميل السعوديات في يوم المرأة العالمي</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%AC%D9%85%D8%A7%D9%84/%D9%85%D9%83%D9%8A%D8%A7%D8%AC-%D9%88%D8%B9%D8%B7%D9%88%D8%B1/1830643-%D8%AA%D8%B9%D8%B1%D9%81%D9%8A-%D8%B9%D9%84%D9%89-%D8%A3%D8%A8%D8%B1%D8%B2-%D8%AE%D8%A8%D9%8A%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D8%AA%D8%AC%D9%85%D9%8A%D9%84-%D8%A7%D9%84%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A7%D8%AA-%D9%81%D9%8A-%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D9%85%D8%B1%D8%A3%D8%A9-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">صيحات مكياج من أسبوع الموضة في باريس لشتاء 2027.. عيون سموكي جريئة تسرق الأنظار</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%AC%D9%85%D8%A7%D9%84/%D9%85%D9%83%D9%8A%D8%A7%D8%AC-%D9%88%D8%B9%D8%B7%D9%88%D8%B1/1830650-%D8%B5%D9%8A%D8%AD%D8%A7%D8%AA-%D9%85%D9%83%D9%8A%D8%A7%D8%AC-%D9%85%D9%86-%D8%A3%D8%B3%D8%A8%D9%88%D8%B9-%D8%A7%D9%84%D9%85%D9%88%D8%B6%D8%A9-%D9%81%D9%8A-%D8%A8%D8%A7%D8%B1%D9%8A%D8%B3-%D9%84%D8%B4%D8%AA%D8%A7%D8%A1-2027" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">دعاء اليوم الثامن عشر من شهر رمضان 2026</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D9%88%D9%81%D9%86%D9%88%D9%86/1808322-%D8%AF%D8%B9%D8%A7%D8%A1-%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%AB%D8%A7%D9%85%D9%86-%D8%B9%D8%B4%D8%B1-%D9%85%D9%86-%D8%B4%D9%87%D8%B1-%D8%B1%D9%85%D8%B6%D8%A7%D9%86" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
-                <div class="premium-ad-block">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <div class="ad-wrap">
-                            <span class="exclusive">حصري</span>
-                            <h3>كواليس وأسرار النجوم المسربة اليوم</h3>
-                            <p>اضغط هنا لمشاهدة الصور والفيديوهات الحصرية</p>
-                            <div class="ad-button">دخول الأرشيف السري 💎</div>
-                        </div>
-                    </a>
-                </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">شتوتغارت وجهة ألمانية مثالية لمحبي السيارات والثقافة</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%84%D8%A7%D9%8A%D9%81-%D8%B3%D8%AA%D8%A7%D9%8A%D9%84/%D8%B3%D9%8A%D8%A7%D8%AD%D8%A9-%D9%88%D8%B3%D9%81%D8%B1/1830642-%D8%A3%D9%85%D8%A7%D9%83%D9%86-%D8%B3%D9%8A%D8%A7%D8%AD%D9%8A%D8%A9-%D9%81%D9%8A-%D8%B4%D8%AA%D9%88%D8%AA%D8%BA%D8%A7%D8%B1%D8%AA-%D8%A8%D8%A3%D9%84%D9%85%D8%A7%D9%86%D9%8A%D8%A7" target="_blank" class="btn-sub">المصدر</a>
-                    </div>
-                </div>
-            </article>
-            <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
-                <div class="card-thumb">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title">تماماً كما تحبّ أمي من فيرجن ميجاستور</h2>
-                    <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
-                    </div>
-                    <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1830656-%D9%81%D9%8A%D8%B1%D8%AC%D9%86-%D9%85%D9%8A%D8%AC%D8%A7%D8%B3%D8%AA%D9%88%D8%B1" target="_blank" class="btn-sub">المصدر</a>
-                    </div>
-                </div>
-            </article>
-            <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
-                <div class="card-thumb">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title">أفضل وقت لتناول الخضار والفواكه للاستفادة القصوى: نصائح عملية يومية</h2>
-                    <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
-                    </div>
-                    <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%B5%D8%AD%D8%A9-%D9%88%D8%B1%D8%B4%D8%A7%D9%82%D8%A9/%D8%B5%D8%AD%D8%A9/1830622-%D8%A3%D9%81%D8%B6%D9%84-%D9%88%D9%82%D8%AA-%D9%84%D8%AA%D9%86%D8%A7%D9%88%D9%84-%D8%A7%D9%84%D8%AE%D8%B6%D8%A7%D8%B1-%D9%88%D8%A7%D9%84%D9%81%D9%88%D8%A7%D9%83%D9%87" target="_blank" class="btn-sub">المصدر</a>
-                    </div>
-                </div>
-            </article>
-            <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
-                <div class="card-thumb">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title">إطلاق مشروع "مسار بدر" في المدينة المنورة لإحياء درب الفرقان وإثراء تجربة الزوار</h2>
-                    <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
-                    </div>
-                    <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1830640-%D9%87%D9%8A%D8%A6%D8%A9-%D8%AA%D8%B7%D9%88%D9%8A%D8%B1-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%86%D8%A9-%D8%A7%D9%84%D9%85%D9%86%D9%88%D8%B1%D8%A9" target="_blank" class="btn-sub">المصدر</a>
-                    </div>
-                </div>
-            </article>
-            <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
-                <div class="card-thumb">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title">مسلسل علي كلاي الحلقة 15.. أحمد العوضي يعود للملاكمة وحمل يارا السكري يقلب الموازين</h2>
-                    <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
-                    </div>
-                    <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1830639-%D9%85%D8%B3%D9%84%D8%B3%D9%84-%D8%B9%D9%84%D9%8A-%D9%83%D9%84%D8%A7%D9%8A-%D8%A7%D9%84%D8%AD%D9%84%D9%82%D8%A9-15" target="_blank" class="btn-sub">المصدر</a>
-                    </div>
-                </div>
-            </article>
-            <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
-                <div class="card-thumb">
-                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h2 class="card-title">وننسى اللي كان الحلقة 17.. شاهر يأمر بالتخلص مع جليلة</h2>
-                    <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
-                    </div>
-                    <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1830638-%D9%85%D8%B3%D9%84%D8%B3%D9%84-%D9%88%D9%86%D9%86%D8%B3%D9%89-%D8%A7%D9%84%D9%84%D9%8A-%D9%83%D8%A7%D9%86-%D8%A7%D9%84%D8%AD%D9%84%D9%82%D8%A9-17-%D8%AE%D8%A7%D9%84%D8%AF-%D8%B3%D8%B1%D8%AD%D8%A7%D9%86-%D9%8A%D8%A3%D9%85%D8%B1-%D8%A8%D9%82%D8%AA%D9%84-%D9%8A%D8%A7%D8%B3%D9%85%D9%8A%D9%86-%D8%B9%D8%A8%D8%AF-%D8%A7%D9%84%D8%B9%D8%B2%D9%8A%D8%B2" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
@@ -657,52 +535,214 @@
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
                         <div class="ad-wrap">
                             <span class="exclusive">حصري</span>
-                            <h3>كواليس وأسرار النجوم المسربة اليوم</h3>
-                            <p>اضغط هنا لمشاهدة الصور والفيديوهات الحصرية</p>
-                            <div class="ad-button">دخول الأرشيف السري 💎</div>
+                            <h3>شاهد الفيديوهات المسربة التي حذفتها الفنانة!</h3>
+                            <p>اضغط هنا للمشاهدة قبل الحذف</p>
+                            <div class="ad-button">مشاهدة الآن 📽️</div>
                         </div>
                     </a>
                 </div>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">تماماً كما تحبّ أمي من فيرجن ميجاستور</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">أفضل وقت لتناول الخضار والفواكه للاستفادة القصوى: نصائح عملية يومية</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">إطلاق مشروع "مسار بدر" في المدينة المنورة لإحياء درب الفرقان وإثراء تجربة الزوار</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">مسلسل علي كلاي الحلقة 15.. أحمد العوضي يعود للملاكمة وحمل يارا السكري يقلب الموازين</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">وننسى اللي كان الحلقة 17.. شاهر يأمر بالتخلص مع جليلة</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+                <div class="premium-ad-block">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <div class="ad-wrap">
+                            <span class="exclusive">حصري</span>
+                            <h3>شاهد الفيديوهات المسربة التي حذفتها الفنانة!</h3>
+                            <p>اضغط هنا للمشاهدة قبل الحذف</p>
+                            <div class="ad-button">مشاهدة الآن 📽️</div>
+                        </div>
+                    </a>
+                </div>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">مسلسل مولانا الحلقة 18.. نانسي خوري تعترف بحبها لتيم حسن وفارس الحلو يقلب الطاولة</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D9%85%D8%B4%D8%A7%D9%87%D9%8A%D8%B1/%D8%B3%D9%8A%D9%86%D9%85%D8%A7-%D9%88%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86/1830637-%D9%85%D8%B3%D9%84%D8%B3%D9%84-%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7-%D8%A7%D9%84%D8%AD%D9%84%D9%82%D8%A9-18-%D9%86%D8%A7%D9%86%D8%B3%D9%8A-%D8%AE%D9%88%D8%B1%D9%8A-%D8%AA%D8%B9%D8%AA%D8%B1%D9%81-%D8%A8%D8%AD%D8%A8%D9%87%D8%A7-%D9%84%D9%80-%C2%A0%D8%AA%D9%8A%D9%85-%D8%AD%D8%B3%D9%86-%D9%88%D9%81%D8%A7%D8%B1%D8%B3-%D8%A7%D9%84%D8%AD%D9%84%D9%88" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
             </article>
             <article class="celeb-card">
-                <div class="trend-tag">تريند اليوم</div>
+                <div class="trend-tag">تريند المشاهير</div>
                 <div class="card-thumb">
                     <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
-                        <img src="https://images.pexels.com/photos/175658/pexels-photo-175658.jpeg" loading="lazy" alt="celeb news">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
                     </a>
                 </div>
                 <div class="card-body">
                     <h2 class="card-title">9 ظواهر فلكية مميزة تزين سماء محمية الإمام تركي بن عبدالله الملكية في مارس 2026</h2>
                     <div class="meta-info">
-                        <span>🎬 مشاهير العرب</span>
-                        <span>📅 07 مارس</span>
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
                     </div>
                     <div class="action-buttons">
-                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">التفاصيل الكاملة 👁️‍🗨️</a>
-                        <a href="https://www.sayidaty.net/%D8%A8%D9%84%D8%B3/%D8%A3%D8%AE%D8%A8%D8%A7%D8%B1/1830636-%D9%85%D8%AD%D9%85%D9%8A%D8%A9-%D8%A7%D9%84%D8%A5%D9%85%D8%A7%D9%85-%D8%AA%D8%B1%D9%83%D9%8A-%D8%A8%D9%86-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87" target="_blank" class="btn-sub">المصدر</a>
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
                     </div>
                 </div>
-            </article></main>
-    <footer style="text-align:center; padding: 50px; color: #555; font-size: 12px;">
-        <p>SAYIDATY LIGHT &copy; 2026 | ENTERTAINMENT PORTAL</p>
+            </article>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">مسلسل إفراج الحلقة 17.. عمرو سعد يقترب من الحقيقة والخطر يهدد ابنه</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">مغامرات كتاب تأخذ زوار حي حراء الثقافي في رحلة مع عوالم القراءة خلال الشهر الفضيل</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+            <article class="celeb-card">
+                <div class="trend-tag">تريند المشاهير</div>
+                <div class="card-thumb">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <img src="https://www.sayidaty.net/themes/custom/sayidaty/logo.png" loading="lazy" alt="Sayidaty News">
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">5 مواقع معرفية تثري تجربة زوار المسجد النبوي خلال شهر رمضان المبارك</h2>
+                    <div class="meta-info">
+                        <span>👤 مشاهير العرب</span>
+                        <span>📅 07 March 2026</span>
+                    </div>
+                    <div class="action-buttons">
+                        <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank" class="btn-main">اقرأ الخبر كاملاً ⚡</a>
+                    </div>
+                </div>
+            </article>
+                <div class="premium-ad-block">
+                    <a href="Https://data527.click/21330bf1d025d41336e6/57154ac610/?placementName=default" target="_blank">
+                        <div class="ad-wrap">
+                            <span class="exclusive">حصري</span>
+                            <h3>شاهد الفيديوهات المسربة التي حذفتها الفنانة!</h3>
+                            <p>اضغط هنا للمشاهدة قبل الحذف</p>
+                            <div class="ad-button">مشاهدة الآن 📽️</div>
+                        </div>
+                    </a>
+                </div></main>
+    <footer style="text-align:center; padding: 40px; color: #444;">
+        <p>SAYIDATY VIP PORTAL &copy; 2026</p>
     </footer>
 </body>
 </html>
