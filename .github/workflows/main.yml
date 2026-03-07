@@ -1,36 +1,36 @@
-name: Update Stadium 24 Sport
+[span_0](start_span)name: Update Stadium 24 Sport[span_0](end_span)
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
-  workflow_dispatch:
+    - [span_1](start_span)cron: '*/30 * * * *' # التحديث التلقائي كل 30 دقيقة[span_1](end_span)
+  [span_2](start_span)workflow_dispatch: # إمكانية تشغيل البوت يدوياً[span_2](end_span)
 
 permissions:
-  contents: write
+  contents: write # ضروري جداً للسماح للبوت بتحديث ملف index.html
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        [span_3](start_span)uses: actions/checkout@v3[span_3](end_span)
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        [span_4](start_span)uses: actions/setup-python@v4[span_4](end_span)
         with:
-          [span_2](start_span)python-version: '3.10'[span_2](end_span)
+          [span_5](start_span)python-version: '3.10' # استخدام نسخة مستقرة[span_5](end_span)
 
       - name: Install dependencies
         run: |
-          [span_3](start_span)pip install requests beautifulsoup4[span_3](end_span)
+          [span_6](start_span)pip install requests beautifulsoup4 # تثبيت المكتبات المطلوبة[span_6](end_span)
 
       - name: Run Scraper
-        [span_4](start_span)run: python scraper.py[span_4](end_span)
+        [span_7](start_span)run: python "scraper.py" # تأكد أن اسم الملف في المستودع هو scraper.py[span_7](end_span)
 
       - name: Commit and Push
         run: |
-          [span_5](start_span)git config --global user.name "GitHub Actions"[span_5](end_span)
-          [span_6](start_span)git config --global user.email "actions@github.com"[span_6](end_span)
-          git add index.html
-          [span_7](start_span)git commit -m "Auto Update: $(date)" || echo "No changes"[span_7](end_span)
-          git push
+          [span_8](start_span)git config --global user.name "GitHub Actions"[span_8](end_span)
+          [span_9](start_span)git config --global user.email "actions@github.com"[span_9](end_span)
+          [span_10](start_span)git add index.html[span_10](end_span)
+          [span_11](start_span)git commit -m "Auto Update: $(date)" || echo "No changes to commit"[span_11](end_span)
+          [span_12](start_span)git push[span_12](end_span)
