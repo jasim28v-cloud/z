@@ -1,4 +1,4 @@
-name: Update Sayidaty Light Content
+name: Layalina Auto Update
 
 on:
   schedule:
@@ -9,25 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Setup Python Environment
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
-        run: |
-          pip install requests beautifulsoup4 lxml
+      - name: Install Requirements
+        run: pip install requests beautifulsoup4 lxml
 
-      - name: Run Scraper
+      - name: Execute Scraper
         run: python scraper.py
 
-      - name: Commit and Push
+      - name: Deploy Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "Auto Update: $(date)" || echo "No changes to commit"
+          git commit -m "Update Celeb Content: $(date)" || echo "No changes"
           git push
