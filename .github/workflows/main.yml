@@ -1,0 +1,33 @@
+name: Update Sayidaty Light Content
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # تحديث تلقائي كل 30 دقيقة لضمان تدفق الزوار والأرباح
+  workflow_dispatch: # إمكانية التشغيل اليدوي فوراً من تبويب Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          [span_2](start_span)python-version: '3.10' #[span_2](end_span)
+
+      - name: Install dependencies
+        run: |
+          [span_3](start_span)pip install requests beautifulsoup4 lxml #[span_3](end_span)
+
+      - name: Run Scraper
+        run: python scraper.py # تأكد أن ملف البايثون محفوظ بهذا الاسم في المستودع
+
+      - name: Commit and Push
+        run: |
+          [span_4](start_span)git config --global user.name "GitHub Actions" #[span_4](end_span)
+          [span_5](start_span)git config --global user.email "actions@github.com" #[span_5](end_span)
+          git add index.html
+          [span_6](start_span)git commit -m "Auto Update Celeb News: $(date)" || echo "No changes to commit" #[span_6](end_span)
+          git push
