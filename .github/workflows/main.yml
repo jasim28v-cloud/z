@@ -1,48 +1,36 @@
-name: "SHΔDØW CØRE: Sports Engine Sync"
+name: Update Stadium 24 Sport
 
 on:
   schedule:
-    # [span_3](start_span)التحديث التلقائي كل 30 دقيقة لضمان تدفق البيانات والأرباح[span_3](end_span)
     - cron: '*/30 * * * *'
-  [span_4](start_span)workflow_dispatch: # التشغيل اليدوي الفوري عند الحاجة[span_4](end_span)
+  workflow_dispatch:
 
-# [span_5](start_span)تأمين الصلاحيات لضمان قدرة البوت على الكتابة في المستودع[span_5](end_span)
 permissions:
   contents: write
 
 jobs:
-  automation_engine:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: "Clone Repository"
-        [span_6](start_span)uses: actions/checkout@v4 # التحديث لآخر نسخة مستقرة[span_6](end_span)
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: "Initialize Shadow Environment"
-        [span_7](start_span)uses: actions/setup-python@v5 # استخدام النسخة الأحدث والأسرع[span_7](end_span)
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          [span_8](start_span)python-version: '3.11' # ترقية النسخة لضمان أداء أسرع في معالجة النصوص[span_8](end_span)
-          [span_9](start_span)cache: 'pip' # تفعيل التخزين المؤقت التلقائي لتسريع التنفيذ[span_9](end_span)
+          [span_2](start_span)python-version: '3.10'[span_2](end_span)
 
-      - name: "Install High-Performance Libraries"
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          [span_10](start_span)pip install requests beautifulsoup4 lxml[span_10](end_span)
+          [span_3](start_span)pip install requests beautifulsoup4[span_3](end_span)
 
-      - name: "Execute Shadow Scraper"
-        [span_11](start_span)run: python scraper.py # تشغيل المحرك الرئيسي لجلب الأخبار[span_11](end_span)
+      - name: Run Scraper
+        [span_4](start_span)run: python scraper.py[span_4](end_span)
 
-      - name: "Secure Deployment & Push"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and Push
         run: |
-          [span_12](start_span)git config --global user.name "Shadow-Bot-V99"[span_12](end_span)
-          [span_13](start_span)git config --global user.email "bot@shadowcore.ai"[span_13](end_span)
-          
-          # التحقق من وجود تغييرات قبل المحاولة لمنع الأخطاء الوهمية
+          [span_5](start_span)git config --global user.name "GitHub Actions"[span_5](end_span)
+          [span_6](start_span)git config --global user.email "actions@github.com"[span_6](end_span)
           git add index.html
-          if git diff --staged --quiet; then
-            [span_14](start_span)echo "No changes detected. Sleeping..."[span_14](end_span)
-          else
-            [span_15](start_span)git commit -m "🔥 Shadow Sync: $(date +'%Y-%m-%d %H:%M:%S')"[span_15](end_span)
-            git push origin main
-          fi
+          [span_7](start_span)git commit -m "Auto Update: $(date)" || echo "No changes"[span_7](end_span)
+          git push
