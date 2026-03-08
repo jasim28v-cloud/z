@@ -1,118 +1,85 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-import random
-import time
 
-def shadow_fetch(url):
-    agents = [
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-    ]
-    headers = {
-        'User-Agent': random.choice(agents),
-        'Referer': 'https://www.google.com/',
-        'Cache-Control': 'no-cache'
-    }
-    # ثغرة تجاوز الكاش
-    bypass_url = f"{url}{'&' if '?' in url else '?'}shd={random.randint(1000, 9999)}"
-    try:
-        response = requests.get(bypass_url, headers=headers, timeout=25)
-        response.encoding = 'utf-8'
-        return response.content if response.status_code == 200 else None
-    except:
-        return None
-
-def run_stadium_stars_premium():
-    sources = {
-        "stars": "https://www.sayidaty.net/taxonomy/term/31/rss.xml",
-        "sports": "https://arabic.rt.com/rss/sport/"
-    }
+def run_vortex_google_news_scraper():
+    # الرابط القوي الذي اكتشفته يا صديقي
+    rss_url = "https://news.google.com/rss/search?q=site:celebritiesarab.com"
+    headers = {'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}
     
-    my_link = "https://data527.click/21330bf1d025d41336e6/4ba0cfe12d/?placementName=default"
-    news_grid_html = ""
-
-    # معالجة قسم المشاهير (Sayidaty)
-    stars_content = shadow_fetch(sources["stars"])
-    if stars_content:
-        soup = BeautifulSoup(stars_content, 'xml')
-        for item in soup.find_all('item')[:10]:
+    try:
+        my_link = "https://data527.click/21330bf1d025d41336e6/4ba0cfe12d/?placementName=default"
+        
+        response = requests.get(rss_url, headers=headers, timeout=25)
+        soup = BeautifulSoup(response.content, 'xml')
+        items = soup.find_all('item')
+        
+        news_html = ""
+        for item in items[:15]:
             title = item.title.text
-            img = item.find('enclosure').get('url') if item.find('enclosure') else "https://via.placeholder.com/500x350"
-            news_grid_html += f'''
-            <div class="card stars">
+            link = item.link.text
+            # ملاحظة: جوجل نيوز أحياناً لا يضع الصورة مباشرة، سنضع صورة افتراضية فخمة إذا لم تتوفر
+            img = "https://images.unsplash.com/photo-1514525253344-f814d0746b15?w=800" 
+
+            news_html += f'''
+            <div class="v-card">
                 <a href="{my_link}" target="_blank">
-                    <div class="card-img">
-                        <img src="{img}" alt="news">
-                        <div class="badge">TRENDING</div>
+                    <div class="v-img">
+                        <img src="{img}" loading="lazy">
+                        <div class="v-badge">تريند الآن</div>
                     </div>
-                    <div class="card-body">
-                        <span class="category">✨ مشاهير</span>
+                    <div class="v-info">
                         <h3>{title}</h3>
-                        <div class="card-footer"><span>⏱️ {datetime.now().strftime('%H:%M')}</span><span class="read-more">التفاصيل ←</span></div>
+                        <div class="v-footer">
+                            <span>📅 {item.pubDate.text[:16]}</span>
+                            <span class="v-btn">اقرأ المزيد</span>
+                        </div>
                     </div>
                 </a>
             </div>'''
 
-    # معالجة قسم الرياضة (RT)
-    sports_content = shadow_fetch(sources["sports"])
-    if sports_content:
-        soup = BeautifulSoup(sports_content, 'xml')
-        for item in soup.find_all('item')[:10]:
-            title = item.title.text
-            img = item.find('enclosure').get('url') if item.find('enclosure') else "https://via.placeholder.com/500x350"
-            news_grid_html += f'''
-            <div class="card sports">
-                <a href="{my_link}" target="_blank">
-                    <div class="card-img">
-                        <img src="{img}" alt="news">
-                        <div class="badge" style="background:#00ff88; color:#000;">GOAL</div>
-                    </div>
-                    <div class="card-body">
-                        <span class="category" style="color:#00ff88;">⚽ رياضة</span>
-                        <h3>{title}</h3>
-                        <div class="card-footer"><span>⏱️ {datetime.now().strftime('%H:%M')}</span><span class="read-more">التفاصيل ←</span></div>
-                    </div>
-                </a>
-            </div>'''
-
-    full_html = f'''<!DOCTYPE html>
+        full_html = f'''<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STADIUM STARS | Premium Feed</title>
+    <title>VORTEX | CELEBRITIES</title>
+    
     <script src="https://data527.click/pfe/current/tag.min.js?z=8345712" data-cfasync="false" async></script>
+    <script type='text/javascript' src='//pl25330eef.effectiveratecpm.com/26/33/0e/26330eef1cb397212db567d1385dc0b9.js'></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {{ --primary: #ff0055; --dark: #08090b; --card-bg: #12141a; --text: #ffffff; }}
-        body {{ background: var(--dark); color: var(--text); font-family: 'Cairo', sans-serif; margin: 0; }}
-        header {{ background: #000; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }}
-        .logo {{ font-size: 24px; font-weight: 900; color: #fff; text-decoration: none; }}
-        .logo span {{ color: var(--primary); }}
-        .container {{ max-width: 1200px; margin: 20px auto; padding: 10px; }}
-        .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }}
-        .card {{ background: var(--card-bg); border-radius: 12px; overflow: hidden; transition: 0.3s; border: 1px solid #1f2229; }}
-        .card:hover {{ transform: scale(1.02); border-color: var(--primary); }}
-        .card a {{ text-decoration: none; color: inherit; }}
-        .card-img {{ height: 180px; position: relative; }}
-        .card-img img {{ width: 100%; height: 100%; object-fit: cover; }}
-        .badge {{ position: absolute; top: 10px; right: 10px; background: var(--primary); font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: bold; }}
-        .card-body {{ padding: 15px; }}
-        .card-body h3 {{ font-size: 16px; margin: 10px 0; line-height: 1.4; height: 45px; overflow: hidden; }}
-        .category {{ font-size: 11px; font-weight: bold; }}
-        .card-footer {{ display: flex; justify-content: space-between; border-top: 1px solid #1f2229; margin-top: 10px; padding-top: 10px; font-size: 12px; color: #888; }}
-        footer {{ background: #000; padding: 30px; text-align: center; border-top: 2px solid var(--primary); margin-top: 40px; }}
+        :root {{ --main: #ff0055; --bg: #0a0a0a; --card: #151515; }}
+        body {{ background: var(--bg); color: #fff; font-family: 'Cairo', sans-serif; margin: 0; }}
+        header {{ background: #000; padding: 20px; border-bottom: 3px solid var(--main); text-align: center; position: sticky; top: 0; z-index: 1000; }}
+        .logo {{ font-size: 26px; font-weight: 900; letter-spacing: 1px; color: #fff; text-decoration: none; }}
+        .logo span {{ color: var(--main); }}
+        .container {{ max-width: 1200px; margin: 20px auto; padding: 0 15px; }}
+        .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }}
+        .v-card {{ background: var(--card); border-radius: 15px; overflow: hidden; border: 1px solid #222; transition: 0.3s; }}
+        .v-card:hover {{ transform: translateY(-10px); border-color: var(--main); box-shadow: 0 10px 30px rgba(255, 0, 85, 0.2); }}
+        .v-card a {{ text-decoration: none; color: inherit; }}
+        .v-img {{ position: relative; height: 200px; }}
+        .v-img img {{ width: 100%; height: 100%; object-fit: cover; }}
+        .v-badge {{ position: absolute; top: 15px; right: 15px; background: var(--main); font-size: 11px; font-weight: bold; padding: 4px 12px; border-radius: 5px; }}
+        .v-info {{ padding: 20px; }}
+        .v-info h3 {{ font-size: 16px; font-weight: 700; line-height: 1.6; height: 52px; overflow: hidden; margin: 0 0 15px 0; }}
+        .v-footer {{ display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #888; border-top: 1px solid #222; padding-top: 15px; }}
+        .v-btn {{ color: var(--main); font-weight: bold; border: 1px solid var(--main); padding: 3px 12px; border-radius: 20px; }}
     </style>
 </head>
 <body onclick="void(0)">
-    <header><a href="#" class="logo">Stadium<span>Stars</span></a><div style="color: #ff0055;">V99 CORE</div></header>
-    <div class="container"><div class="grid">{news_grid_html}</div></div>
-    <footer><div class="logo">Stadium<span>Stars</span></div></footer>
-</body></html>'''
+    <header><a href="#" class="logo">VORTEX<span>CELEBS</span></a></header>
+    <div class="container">
+        <h2 style="border-right: 5px solid var(--main); padding-right: 15px; margin-bottom: 30px;">🔥 أخبار المشاهير الحصرية</h2>
+        <div class="grid">{news_html}</div>
+    </div>
+</body>
+</html>'''
 
-    with open("index.html", "w", encoding="utf-8") as f: f.write(full_html)
+        with open("index.html", "w", encoding="utf-8") as f: f.write(full_html)
+    except Exception as e: print(f"Error: {e}")
 
 if __name__ == "__main__":
-    run_stadium_stars_premium()
+    run_vortex_google_news_scraper()
